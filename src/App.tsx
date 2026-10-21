@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { AppProvider, useApp } from "./context/AppContext";
 import Header from "./components/ecommerce/Header";
 import Footer from "./components/ecommerce/Footer";
@@ -22,7 +22,7 @@ function ScrollToTop() {
 }
 
 function StorefrontContent() {
-  const { toast, showToast, rentalModalItem, closeRentalModal } = useApp();
+  const { currentUser, toast, showToast, rentalModalItem, closeRentalModal } = useApp();
 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
@@ -104,7 +104,10 @@ function StorefrontContent() {
       <main className="max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1">
         <Routes>
           <Route path="/" element={<ShopPage onAddToCart={handleAddToCart} />} />
-          <Route path="/calendar" element={<CalendarPage />} />
+          <Route
+            path="/calendar"
+            element={currentUser.role === "admin" ? <CalendarPage /> : <Navigate to="/" replace />}
+          />
           <Route path="/product/:id" element={<ProductDetailPage onAddToCart={handleAddToCart} />} />
           <Route path="/new-arrivals" element={<NewArrivalsPage onAddToCart={handleAddToCart} />} />
           <Route path="/discount" element={<DiscountPage onAddToCart={handleAddToCart} />} />
@@ -126,15 +129,17 @@ function StorefrontContent() {
       />
 
       {/* Item-Specific Rental Booking Calendar Modal */}
-      <ItemRentalCalendarModal
-        isOpen={Boolean(rentalModalItem)}
-        onClose={closeRentalModal}
-        material={rentalModalItem?.material || null}
-        deal={rentalModalItem?.deal}
-        onConfirmRental={(material, days) => {
-          handleAddToCart(material, "rent", days);
-        }}
-      />
+      {rentalModalItem && (
+        <ItemRentalCalendarModal
+          isOpen={true}
+          onClose={closeRentalModal}
+          material={rentalModalItem.material}
+          deal={rentalModalItem.deal}
+          onConfirmRental={(material, days) => {
+            handleAddToCart(material, "rent", days);
+          }}
+        />
+      )}
 
       {/* Real-time Toast Notifications */}
       <Toast toast={toast} />

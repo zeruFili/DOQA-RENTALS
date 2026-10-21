@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const navLinks = [
     { label: "Shop Fleet", path: "/" },
-    { label: "Event Calendar", path: "/calendar" },
+    ...(currentUser.role === "admin" ? [{ label: "Event Calendar", path: "/calendar" }] : []),
     { label: "New Arrivals", path: "/new-arrivals" },
     { label: "Deals & Specials", path: "/discount" },
   ];

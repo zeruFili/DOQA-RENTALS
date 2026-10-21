@@ -8,7 +8,7 @@ import { DealInfo } from "../../utils/deals";
 interface ItemRentalCalendarModalProps {
   isOpen: boolean;
   onClose: () => void;
-  material: Material | null;
+  material: Material;
   deal?: DealInfo;
   onConfirmRental: (material: Material, rentalDays: number) => void;
 }
@@ -29,16 +29,6 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
   const [requestedQty, setRequestedQty] = useState<number>(1);
   const [selectedBookingForDetails, setSelectedBookingForDetails] = useState<RentalReservation | null>(null);
 
-  if (!isOpen || !material) return null;
-
-  // Effective pricing considering deals
-  const dailyPrice = deal ? deal.discountedPrice : material.rentalPriceDaily;
-  const originalPrice = deal ? deal.originalPrice : material.rentalPriceDaily;
-  const currency = deal ? deal.currency : "USD";
-  const currencySymbol = deal ? `${deal.currency} ` : "$";
-  const subtotal = dailyPrice * rentalDays * requestedQty;
-  const deposit = material.depositAmount ?? Math.round(dailyPrice * 1.5 * requestedQty);
-
   // Month info
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -53,8 +43,18 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
     "July", "August", "September", "October", "November", "December",
   ];
 
+  // Effective pricing considering deals
+  const dailyPrice = deal ? deal.discountedPrice : (material?.rentalPriceDaily || 0);
+  const originalPrice = deal ? deal.originalPrice : (material?.rentalPriceDaily || 0);
+  const currency = deal ? deal.currency : "USD";
+  const currencySymbol = deal ? `${deal.currency} ` : "$";
+  const subtotal = dailyPrice * rentalDays * requestedQty;
+  const deposit = material?.depositAmount ?? Math.round(dailyPrice * 1.5 * requestedQty);
+
   // Retrieve all existing bookings for THIS specific material
   const itemBookings: RentalReservation[] = useMemo(() => {
+    if (!material) return [];
+
     // 1. Direct bookings from mock rentals that contain this materialId
     const direct = rentals.filter((r) =>
       r.items.some((item) => item.materialId === material.id)
@@ -192,7 +192,7 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
         amountPaid: dailyPrice * 4.3,
         outstandingBalance: 0,
         status: "Confirmed",
-        deliveryType: "Customer Pick-Up",
+        deliveryType: "Customer Pickup",
         deliveryAddress: "Festival Grounds, Stage East",
         assignedDriverId: "usr-04",
         assignedDriverName: "Eric James",
@@ -268,24 +268,23 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
 
     const totalFleet = material.totalOwned || 50;
     const remainingUnits = Math.max(0, totalFleet - bookedUnits);
-    const isFullyBooked = remainingUnits === 0 && bookedUnits > 0;
-    const isPartiallyBooked = bookedUnits > 0 && remainingUnits > 0;
+    const isBooked = overlapping.length > 0;
 
     return {
       dayStr,
       overlapping,
       bookedUnits,
       remainingUnits,
-      isFullyBooked,
-      isPartiallyBooked,
-      isCompletelyFree: bookedUnits === 0,
+      isBooked,
+      isAvailable: !isBooked,
     };
   };
 
   // Selected date availability check
   const selectedDateAvailability = useMemo(() => {
+    if (!material) return { available: true, maxAvailable: 0, conflictingRentals: [] };
     return checkMaterialAvailability(material.id, `${selectedDate}T09:00`, `${selectedDate}T18:00`, requestedQty);
-  }, [checkMaterialAvailability, material.id, selectedDate, requestedQty]);
+  }, [checkMaterialAvailability, material, selectedDate, requestedQty]);
 
   // Handle month shift
   const handlePrevMonth = () => {
@@ -309,6 +308,8 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
     onConfirmRental(targetMaterial, rentalDays);
     onClose();
   };
+
+  if (!isOpen || !material) return null;
 
   return (
     <div
@@ -475,18 +476,13 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
 
                   let bgTone = "bg-emerald-50/50 border-emerald-100 text-emerald-950 hover:bg-emerald-100/60";
                   let statusBadge = (
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" title="Ready to reserve" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" title="Available" />
                   );
 
-                  if (availability.isFullyBooked) {
+                  if (availability.isBooked) {
                     bgTone = "bg-rose-50 border-rose-200 text-rose-950 hover:bg-rose-100";
                     statusBadge = (
-                      <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" title="Fully reserved" />
-                    );
-                  } else if (availability.isPartiallyBooked) {
-                    bgTone = "bg-amber-50 border-amber-200 text-amber-950 hover:bg-amber-100";
-                    statusBadge = (
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" title="Partially reserved" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" title="Booked" />
                     );
                   }
 
@@ -509,13 +505,9 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
                       </div>
 
                       <div className="text-[9px] truncate">
-                        {availability.isFullyBooked ? (
+                        {availability.isBooked ? (
                           <span className={isSelected ? "text-rose-200 font-bold" : "text-rose-700 font-bold"}>
-                            Booked ({availability.bookedUnits})
-                          </span>
-                        ) : availability.isPartiallyBooked ? (
-                          <span className={isSelected ? "text-amber-200 font-bold" : "text-amber-800 font-bold"}>
-                            {availability.remainingUnits} free
+                            Booked
                           </span>
                         ) : (
                           <span className={isSelected ? "text-emerald-200 font-medium" : "text-emerald-700 font-medium"}>
@@ -533,15 +525,11 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
                 <div className="flex items-center gap-4">
                   <span className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                    <span>Available</span>
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-                    <span>Partial Fleet Reserved</span>
+                    <span className="font-medium text-gray-700">Available</span>
                   </span>
                   <span className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                    <span>Fully Booked</span>
+                    <span className="font-medium text-gray-700">Booked</span>
                   </span>
                 </div>
                 <span className="text-[10px] text-gray-400">Click any date to inspect details</span>

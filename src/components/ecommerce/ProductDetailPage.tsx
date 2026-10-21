@@ -15,7 +15,7 @@ interface ProductDetailPageProps {
 export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ onAddToCart }) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { materials, showToast } = useApp();
+  const { currentUser, materials, showToast } = useApp();
 
   const material = materials.find((m) => m.id === id);
 
@@ -314,13 +314,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ onAddToCar
               Check booked event dates, customer reservations, and open rental windows for this {material.category.toLowerCase()} equipment.
             </p>
           </div>
-          <Link
-            to="/calendar"
-            className="text-xs font-bold text-emerald-950 hover:underline inline-flex items-center gap-1 self-start sm:self-auto"
-          >
-            <span>Full Fleet Calendar</span>
-            <span>→</span>
-          </Link>
+          {currentUser.role === "admin" && (
+            <Link
+              to="/calendar"
+              className="text-xs font-bold text-emerald-950 hover:underline inline-flex items-center gap-1 self-start sm:self-auto"
+            >
+              <span>Full Fleet Calendar</span>
+              <span>→</span>
+            </Link>
+          )}
         </div>
 
         <RentalCalendar
