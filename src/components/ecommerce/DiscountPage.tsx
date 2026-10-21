@@ -91,16 +91,16 @@ export const DiscountPage: React.FC<DiscountPageProps> = ({ onAddToCart }) => {
   return (
     <div className="space-y-8">
       {/* Deals Hero Banner */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-[#123d32] via-[#1a4a3e] to-rose-950 text-white rounded-3xl p-8 md:p-12 shadow-xl border border-rose-900/40">
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#123d32] via-[#1a4a3e] to-rose-950 text-white rounded-3xl p-5 sm:p-8 md:p-12 shadow-xl border border-rose-900/40">
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-600/30 border border-rose-400/40 text-rose-200 text-xs font-black uppercase tracking-wider">
             <span className="w-2 h-2 rounded-full bg-rose-400 animate-ping" />
             <span>DOQA EVENTS • DEALS & SPECIAL OFFERS</span>
-            <span>•</span>
-            <span>UP TO 30% OFF</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="hidden sm:inline">UP TO 30% OFF</span>
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-black font-display tracking-tight text-white leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-black font-display tracking-tight text-white leading-tight">
             Exclusive Deals & Discounted Rental Fleet
           </h1>
 
@@ -220,8 +220,8 @@ export const DiscountPage: React.FC<DiscountPageProps> = ({ onAddToCart }) => {
       </div>
 
       {/* Results Header Count */}
-      <div className="flex items-center justify-between text-xs font-semibold text-gray-500 pb-2 border-b border-gray-200">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-semibold text-gray-500 pb-2 border-b border-gray-200 gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <span>Showing <strong>{filteredDeals.length}</strong> special offer items</span>
           {selectedCategory !== "All" && (
             <span className="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded-md font-bold text-[11px] border border-emerald-200">
@@ -234,7 +234,7 @@ export const DiscountPage: React.FC<DiscountPageProps> = ({ onAddToCart }) => {
             </span>
           )}
         </div>
-        <Link to="/" className="text-[#123d32] hover:underline font-bold flex items-center gap-1">
+        <Link to="/" className="text-[#123d32] hover:underline font-bold flex items-center gap-1 shrink-0">
           <span>← Back to Full Fleet</span>
         </Link>
       </div>

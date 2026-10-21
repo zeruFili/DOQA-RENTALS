@@ -175,7 +175,7 @@ export const RentalCalendar: React.FC<RentalCalendarProps> = ({
     <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden space-y-5 p-5 md:p-6">
       {/* Calendar Header Controls */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-4 border-b border-gray-100">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-1">
             <button
               onClick={handlePrev}
@@ -210,8 +210,8 @@ export const RentalCalendar: React.FC<RentalCalendarProps> = ({
         </div>
 
         {/* View Mode Switcher */}
-        <div className="flex items-center gap-2">
-          <div className="bg-gray-100 p-1 rounded-xl border border-gray-200 flex items-center text-xs font-bold">
+        <div className="flex items-center gap-2 overflow-x-auto">
+          <div className="bg-gray-100 p-1 rounded-xl border border-gray-200 flex items-center text-xs font-bold shrink-0">
             {(["month", "week", "day", "year"] as const).map((v) => (
               <button
                 key={v}
@@ -366,8 +366,9 @@ export const RentalCalendar: React.FC<RentalCalendarProps> = ({
 
       {/* MONTH VIEW */}
       {calendarView === "month" && (
-        <div className="space-y-1">
-          {/* Day of Week Headers */}
+        <div className="overflow-x-auto pb-2 -mx-2 px-2 sm:mx-0 sm:px-0">
+          <div className="min-w-[640px] md:min-w-0 space-y-1">
+            {/* Day of Week Headers */}
           <div className="grid grid-cols-7 gap-px border-b border-gray-200 text-center text-[11px] font-bold text-gray-500 uppercase py-2 bg-gray-50 rounded-t-2xl">
             <span>Sun</span>
             <span>Mon</span>
@@ -474,12 +475,14 @@ export const RentalCalendar: React.FC<RentalCalendarProps> = ({
             })}
           </div>
         </div>
+      </div>
       )}
 
       {/* WEEK VIEW */}
       {calendarView === "week" && (
-        <div className="space-y-3">
-          <div className="grid grid-cols-1 sm:grid-cols-7 gap-3">
+        <div className="overflow-x-auto pb-2 -mx-2 px-2 sm:mx-0 sm:px-0">
+          <div className="min-w-[700px] lg:min-w-0 space-y-3">
+            <div className="grid grid-cols-7 gap-3">
             {weekDays.map((dObj) => {
               const y = dObj.getFullYear();
               const m = String(dObj.getMonth() + 1).padStart(2, "0");
@@ -564,6 +567,7 @@ export const RentalCalendar: React.FC<RentalCalendarProps> = ({
             })}
           </div>
         </div>
+      </div>
       )}
 
       {/* DAY VIEW */}
@@ -699,26 +703,26 @@ export const RentalCalendar: React.FC<RentalCalendarProps> = ({
 
       {/* Detailed Booking Modal */}
       {selectedRentalForModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-gray-200 space-y-5 animate-scale-up max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-4 sm:p-6 shadow-2xl border border-gray-200 space-y-4 sm:space-y-5 animate-scale-up max-h-[92vh] sm:max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-3 border-b border-gray-200">
               <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-xl bg-emerald-950 text-amber-400 flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-emerald-950 text-amber-400 flex items-center justify-center font-bold shrink-0">
                   <Icon name="calendar" size={18} />
                 </div>
-                <div>
-                  <h3 className="text-base font-bold text-gray-950 font-display">
+                <div className="min-w-0">
+                  <h3 className="text-base font-bold text-gray-950 font-display truncate">
                     {selectedRentalForModal.reservationNumber}
                   </h3>
-                  <span className="text-[11px] text-gray-500 font-mono">
+                  <span className="text-[11px] text-gray-500 font-mono truncate block">
                     Contract: {selectedRentalForModal.contractNumber}
                   </span>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedRentalForModal(null)}
-                className="p-1.5 text-gray-400 hover:text-gray-900 rounded-lg"
+                className="p-1.5 text-gray-400 hover:text-gray-900 rounded-lg shrink-0"
               >
                 <Icon name="close" size={18} />
               </button>
@@ -745,15 +749,15 @@ export const RentalCalendar: React.FC<RentalCalendarProps> = ({
                 </Badge>
               </div>
               <p className="text-gray-700 italic">{selectedRentalForModal.notes}</p>
-              <div className="grid grid-cols-2 gap-2 text-[11px] text-gray-600 pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-gray-600 pt-1">
                 <div>📞 {selectedRentalForModal.customerPhone}</div>
                 <div>✉️ {selectedRentalForModal.customerEmail}</div>
-                <div className="col-span-2">📍 {selectedRentalForModal.deliveryAddress}</div>
+                <div className="col-span-1 sm:col-span-2">📍 {selectedRentalForModal.deliveryAddress}</div>
               </div>
             </div>
 
             {/* Dates & Timeline */}
-            <div className="grid grid-cols-2 gap-3 text-xs bg-gray-50 p-3 rounded-2xl border border-gray-200">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-gray-50 p-3 rounded-2xl border border-gray-200">
               <div>
                 <span className="text-[10px] text-gray-400 font-bold uppercase block">Rental Start</span>
                 <strong className="text-gray-900">{selectedRentalForModal.startDate.replace("T", " ")}</strong>
@@ -762,7 +766,7 @@ export const RentalCalendar: React.FC<RentalCalendarProps> = ({
                 <span className="text-[10px] text-gray-400 font-bold uppercase block">Expected Return</span>
                 <strong className="text-gray-900">{selectedRentalForModal.expectedReturnDate.replace("T", " ")}</strong>
               </div>
-              <div className="col-span-2 text-[11px] text-emerald-800 font-semibold pt-1 border-t border-gray-200">
+              <div className="col-span-1 sm:col-span-2 text-[11px] text-emerald-800 font-semibold pt-1 border-t border-gray-200">
                 Duration: {selectedRentalForModal.rentalDurationDays} Days · Handled by DOQA EVENTS Logistics
               </div>
             </div>

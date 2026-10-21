@@ -320,23 +320,23 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
     >
       <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 w-full max-w-5xl overflow-hidden flex flex-col max-h-[92vh] animate-in fade-in zoom-in-95 duration-200">
         {/* Modal Top Bar */}
-        <div className="px-6 py-4 bg-gradient-to-r from-[#123d32] to-[#1d5244] text-white flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-400 text-emerald-950 flex items-center justify-center font-black">
-              <Icon name="calendar" size={20} />
+        <div className="px-4 sm:px-6 py-3.5 sm:py-4 bg-gradient-to-r from-[#123d32] to-[#1d5244] text-white flex items-center justify-between">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-400 text-emerald-950 flex items-center justify-center font-black shrink-0">
+              <Icon name="calendar" size={18} />
             </div>
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300">
+            <div className="min-w-0">
+              <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-amber-300 block truncate">
                 DOQA EVENTS • RENTAL RESERVATION & SCHEDULE
               </span>
-              <h2 id="rental-modal-title" className="text-lg sm:text-xl font-bold font-display text-white">
+              <h2 id="rental-modal-title" className="text-base sm:text-xl font-bold font-display text-white truncate">
                 Equipment Rental & Booking Calendar
               </h2>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors text-sm font-bold"
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors text-sm font-bold shrink-0 ml-2"
             title="Close modal"
           >
             ✕
@@ -344,7 +344,7 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
         </div>
 
         {/* Modal Body */}
-        <div className="p-5 sm:p-6 overflow-y-auto space-y-6 flex-1">
+        <div className="p-3.5 sm:p-6 overflow-y-auto space-y-5 sm:space-y-6 flex-1">
           {/* Specific Item Banner Showcase */}
           <div className="bg-emerald-50/50 rounded-2xl border border-emerald-200/80 p-4 sm:p-5 flex flex-col md:flex-row gap-5 items-start">
             <div className="w-full md:w-48 h-36 rounded-xl overflow-hidden bg-gray-100 shrink-0 border border-emerald-200 relative group">
@@ -467,7 +467,7 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
               {/* Calendar Grid Days */}
               <div className="grid grid-cols-7 gap-1">
                 {emptyStartDays.map((d) => (
-                  <div key={`empty-${d}`} className="h-14 bg-gray-50/50 rounded-xl border border-transparent" />
+                  <div key={`empty-${d}`} className="h-10 sm:h-14 bg-gray-50/50 rounded-lg sm:rounded-xl border border-transparent" />
                 ))}
 
                 {daysArray.map((dayNum) => {
@@ -495,23 +495,23 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
                       key={dayNum}
                       type="button"
                       onClick={() => setSelectedDate(availability.dayStr)}
-                      className={`h-14 p-1.5 rounded-xl border text-left transition-all flex flex-col justify-between ${bgTone}`}
+                      className={`h-10 sm:h-14 p-1 sm:p-1.5 rounded-lg sm:rounded-xl border text-left transition-all flex flex-col justify-between ${bgTone}`}
                     >
                       <div className="flex items-center justify-between w-full">
-                        <span className={`text-xs font-bold ${isSelected ? "text-white" : ""}`}>
+                        <span className={`text-[11px] sm:text-xs font-bold ${isSelected ? "text-white" : ""}`}>
                           {dayNum}
                         </span>
                         {!isSelected && statusBadge}
                       </div>
 
-                      <div className="text-[9px] truncate">
+                      <div className="text-[8px] sm:text-[9px] truncate">
                         {availability.isBooked ? (
                           <span className={isSelected ? "text-rose-200 font-bold" : "text-rose-700 font-bold"}>
                             Booked
                           </span>
                         ) : (
                           <span className={isSelected ? "text-emerald-200 font-medium" : "text-emerald-700 font-medium"}>
-                            Available
+                            Avail
                           </span>
                         )}
                       </div>
@@ -662,7 +662,7 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <div>
                     <label className="text-[10px] font-bold text-emerald-200 uppercase tracking-wider block mb-1">
                       Start Date
@@ -740,13 +740,13 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3.5 bg-gray-50 border-t border-gray-200 flex items-center justify-between text-xs text-gray-500">
-          <span>
+        <div className="px-4 sm:px-6 py-3 bg-gray-50 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-2">
+          <span className="text-center sm:text-left">
             DOQA EVENTS Equipment Guarantee: All materials are fully inspected and tested prior to dispatch.
           </span>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 font-bold text-gray-700"
+            className="w-full sm:w-auto px-4 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 font-bold text-gray-700"
           >
             Cancel
           </button>
@@ -755,8 +755,8 @@ export const ItemRentalCalendarModal: React.FC<ItemRentalCalendarModalProps> = (
 
       {/* Booking Details Popover Modal */}
       {selectedBookingForDetails && (
-        <div className="fixed inset-0 z-60 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-200 space-y-4">
+        <div className="fixed inset-0 z-60 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-4 sm:p-6 shadow-2xl border border-gray-200 space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-2 border-b border-gray-100">
               <div>
                 <span className="text-[10px] font-mono text-gray-400">

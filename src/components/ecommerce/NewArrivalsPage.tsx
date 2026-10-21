@@ -19,11 +19,11 @@ export const NewArrivalsPage: React.FC<NewArrivalsPageProps> = ({ onAddToCart })
   return (
     <div className="space-y-8">
       {/* Page Header */}
-      <div className="bg-[#123d32] text-white rounded-3xl p-8 md:p-10 shadow-lg space-y-3">
+      <div className="bg-[#123d32] text-white rounded-3xl p-5 sm:p-8 md:p-10 shadow-lg space-y-3">
         <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20 inline-block">
           Latest Additions
         </span>
-        <h1 className="text-3xl md:text-4xl font-black font-display tracking-tight text-white">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black font-display tracking-tight text-white">
           New Fleet Arrivals & Modern Equipment
         </h1>
         <p className="text-xs md:text-sm text-emerald-100/80 max-w-2xl leading-relaxed">
@@ -31,9 +31,9 @@ export const NewArrivalsPage: React.FC<NewArrivalsPageProps> = ({ onAddToCart })
         </p>
       </div>
 
-      <div className="flex items-center justify-between text-xs font-semibold text-gray-500 pb-2 border-b border-gray-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-semibold text-gray-500 pb-2 border-b border-gray-200 gap-2">
         <span>Showing {newArrivals.length} new additions</span>
-        <Link to="/" className="text-emerald-950 hover:underline font-bold">
+        <Link to="/" className="text-[#123d32] hover:underline font-bold">
           ← Back to All Equipment
         </Link>
       </div>

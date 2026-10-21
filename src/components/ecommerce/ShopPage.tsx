@@ -142,19 +142,19 @@ export const ShopPage: React.FC<ShopPageProps> = ({ onAddToCart }) => {
       </div>
 
       {/* Hero Showcase Section */}
-      <section className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#123d32] via-[#1a4a3e] to-[#0e3027] text-white p-8 md:p-12 shadow-xl border border-emerald-800/40">
+      <section className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#123d32] via-[#1a4a3e] to-[#0e3027] text-white p-5 sm:p-8 md:p-12 shadow-xl border border-emerald-800/40">
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
             <span>Event Management & Production Rentals</span>
-            <span>•</span>
-            <span>Same-Day Dispatch & On-Site Setup</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="hidden sm:inline">Same-Day Dispatch & On-Site Setup</span>
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-black font-display tracking-tight text-white leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-black font-display tracking-tight text-white leading-tight">
             Premium Event Materials & Equipment Rental
           </h1>
 
-          <p className="text-sm md:text-base text-emerald-100/80 leading-relaxed max-w-2xl">
+          <p className="text-xs sm:text-sm md:text-base text-emerald-100/80 leading-relaxed max-w-2xl">
             Certified inventory curated exclusively for Weddings, Conferences, Concerts, Corporate Galas, Private Parties, and Exhibitions. Live stock verification, transparent daily & weekly rates, and rapid booking.
           </p>
 
@@ -518,7 +518,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({ onAddToCart }) => {
       </div>
 
       {/* Promotional Fleet Contract Banner */}
-      <section className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 rounded-3xl p-8 md:p-10 text-emerald-950 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+      <section className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 rounded-3xl p-5 sm:p-8 md:p-10 text-emerald-950 shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-xl">
           <span className="text-[10px] font-black uppercase tracking-wider bg-emerald-950 text-white px-2.5 py-0.5 rounded-full inline-block">
             Project Subsidies & Volume Discounts

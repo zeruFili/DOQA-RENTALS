@@ -99,9 +99,9 @@ export const Footer: React.FC = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10 py-5 text-center text-xs text-emerald-300/60">
-        <div className="max-w-[1600px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div className="max-w-[1600px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <span>© 2026 DOQA EVENTS Inc. Event Management & Materials Fleet. All rights reserved.</span>
-          <div className="flex items-center gap-4 text-[11px]">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-4 text-[11px]">
             <Link to="/" className="hover:text-white">Privacy Policy</Link>
             <Link to="/" className="hover:text-white">Terms of Rental</Link>
             <Link to="/" className="hover:text-white">Security & Safety</Link>

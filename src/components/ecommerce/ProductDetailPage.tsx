@@ -172,17 +172,17 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ onAddToCar
                       </span>
                     </div>
 
-                    <div className="flex items-baseline justify-between pt-1">
-                      <div className="flex items-baseline gap-3">
+                    <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 pt-1">
+                      <div className="flex flex-wrap items-baseline gap-2 sm:gap-3">
                         <span className="text-sm font-semibold text-gray-400 line-through decoration-rose-500 decoration-2">
                           {deal.originalPrice.toLocaleString()} {deal.currency}
                         </span>
-                        <strong className="text-3xl font-black text-rose-600 font-display">
+                        <strong className="text-2xl sm:text-3xl font-black text-rose-600 font-display">
                           {deal.discountedPrice.toLocaleString()} {deal.currency}
                           <span className="text-xs font-normal text-gray-500"> / day</span>
                         </strong>
                       </div>
-                      <div className="text-right">
+                      <div className="text-left sm:text-right">
                         <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">
                           Weekly Deal Rate
                         </span>
@@ -194,7 +194,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ onAddToCar
                     </div>
                   </div>
                 ) : (
-                  <div className="p-3.5 bg-emerald-50/60 rounded-xl border border-emerald-200/80 flex items-center justify-between">
+                  <div className="p-3.5 bg-emerald-50/60 rounded-xl border border-emerald-200/80 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                     <div>
                       <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">
                         Standard Daily Rate
@@ -204,7 +204,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ onAddToCar
                         <span className="text-xs font-normal text-gray-500"> / day</span>
                       </strong>
                     </div>
-                    <div className="text-right">
+                    <div className="text-left sm:text-right">
                       <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">
                         Weekly Discount Rate
                       </span>
@@ -271,7 +271,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ onAddToCar
                 </div>
 
                 {/* Add to Cart Actions */}
-                <div className="grid grid-cols-2 gap-3 pt-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                   <button
                     disabled={!isAvailable}
                     onClick={() => {

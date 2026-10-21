@@ -27,24 +27,24 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-xs">
       {/* Main Header Row */}
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
+      <div className="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3 sm:gap-6">
         {/* Brand Logo */}
-        <Link to="/" className="flex items-center gap-3 shrink-0 group">
-          <div className="w-10 h-10 rounded-xl bg-[#123d32] text-amber-400 font-display font-black text-base flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+        <Link to="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#123d32] text-amber-400 font-display font-black text-sm sm:text-base flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
             DE
           </div>
           <div>
-            <span className="font-display font-black text-xl text-gray-950 tracking-tight block leading-tight">
+            <span className="font-display font-black text-lg sm:text-xl text-gray-950 tracking-tight block leading-tight">
               DOQA EVENTS
             </span>
-            <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-widest block">
+            <span className="text-[9px] sm:text-[10px] font-bold text-emerald-800 uppercase tracking-widest block">
               Event Management & Rentals
             </span>
           </div>
         </Link>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
             return (
@@ -64,16 +64,16 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* Actions: Role Indicator, Cart */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
 
           {/* Persona Switcher Dropdown */}
           <div className="relative">
             <button
               onClick={() => setRoleSelectOpen(!roleSelectOpen)}
-              className="flex items-center gap-2 p-1.5 pr-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-xs font-semibold text-gray-800"
+              className="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:pr-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-xs font-semibold text-gray-800"
               title="Current User Persona"
             >
-              <span className="w-7 h-7 rounded-lg bg-emerald-950 text-white font-bold flex items-center justify-center text-xs">
+              <span className="w-7 h-7 rounded-lg bg-emerald-950 text-white font-bold flex items-center justify-center text-xs shrink-0">
                 {currentUser.avatar}
               </span>
               <span className="hidden sm:inline capitalize">{currentUser.role === "admin" ? "Admin User" : "User"}</span>
@@ -82,7 +82,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {roleSelectOpen && (
               <div
-                className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-200 p-2 z-50 animate-scale-up"
+                className="absolute right-0 mt-2 w-56 max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-xl border border-gray-200 p-2 z-50 animate-scale-up"
                 onClick={() => setRoleSelectOpen(false)}
               >
                 <div className="px-3 py-1.5 border-b border-gray-100 mb-1">
@@ -113,13 +113,13 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Cart Bag Button */}
           <button
             onClick={onOpenCart}
-            className="flex items-center gap-2 px-4 py-2.5 bg-[#123d32] text-white rounded-xl text-xs font-bold hover:bg-[#1a4a3e] transition-all shadow-sm relative group"
+            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-[#123d32] text-white rounded-xl text-xs font-bold hover:bg-[#1a4a3e] transition-all shadow-sm relative group shrink-0"
             title="View Reservation & Order Cart"
           >
             <Icon name="cart" size={16} className="text-amber-400" />
             <span className="hidden sm:inline">Reservation Cart</span>
             {cartCount > 0 && (
-              <span className="px-2 py-0.5 rounded-full bg-amber-400 text-emerald-950 font-black text-xs">
+              <span className="px-1.5 sm:px-2 py-0.5 rounded-full bg-amber-400 text-emerald-950 font-black text-xs">
                 {cartCount}
               </span>
             )}

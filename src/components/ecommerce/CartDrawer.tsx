@@ -169,7 +169,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}
-        <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-emerald-50/60 via-white to-amber-50/30">
+        <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-emerald-50/60 via-white to-amber-50/30">
           <div>
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">
@@ -178,7 +178,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <span className="text-xs text-gray-400">•</span>
               <span className="text-xs text-gray-500 font-semibold">{items.length} items</span>
             </div>
-            <h2 className="text-lg font-bold text-gray-900 font-display mt-1">
+            <h2 className="text-base sm:text-lg font-bold text-gray-900 font-display mt-1">
               {checkoutStep === "cart" ? "Your Reservation & Order" : "Confirm Delivery & Handover"}
             </h2>
           </div>
@@ -193,7 +193,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         </div>
 
         {/* Content Body */}
-        <div className="flex-1 overflow-y-auto px-6 py-5">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-5">
           {items.length === 0 ? (
             <div className="py-20 text-center space-y-3">
               <div className="w-16 h-16 rounded-2xl bg-gray-100 text-gray-400 flex items-center justify-center mx-auto">
@@ -216,19 +216,19 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               {items.map((item) => (
                 <div
                   key={`${item.material.id}-${item.orderType}`}
-                  className="p-3.5 bg-gray-50 rounded-2xl border border-gray-200/80 flex items-center gap-3.5 text-xs"
+                  className="p-3 sm:p-3.5 bg-gray-50 rounded-2xl border border-gray-200/80 flex items-center gap-2.5 sm:gap-3.5 text-xs"
                 >
                   <img
                     src={item.material.imageUrl}
                     alt={item.material.name}
-                    className="w-14 h-14 rounded-xl object-cover bg-gray-200 shrink-0"
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover bg-gray-200 shrink-0"
                   />
 
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5">
-                      <strong className="text-gray-900 block truncate font-bold">{item.material.name}</strong>
+                      <strong className="text-gray-900 block truncate font-bold text-xs">{item.material.name}</strong>
                       <span
-                        className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full ${
+                        className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded-full shrink-0 ${
                           item.orderType === "rent" ? "bg-emerald-100 text-emerald-950" : "bg-blue-100 text-blue-950"
                         }`}
                       >
@@ -236,7 +236,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       </span>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3 text-gray-600 text-[11px] mt-1.5">
+                    <div className="flex flex-wrap items-center gap-2 text-gray-600 text-[11px] mt-1">
                       <span className="font-semibold text-emerald-950">
                         {item.orderType === "rent"
                           ? `$${item.material.rentalPriceDaily}/day`
@@ -249,7 +249,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           <select
                             value={item.rentalDays}
                             onChange={(e) => onUpdateDays(item.material.id, parseInt(e.target.value) || 1)}
-                            className="bg-white border border-gray-200 rounded px-1.5 py-0.5 text-[10px] font-semibold outline-none"
+                            className="bg-white border border-gray-200 rounded px-1 py-0.5 text-[10px] font-semibold outline-none"
                           >
                             <option value={1}>1 Day</option>
                             <option value={2}>2 Days</option>
@@ -264,20 +264,20 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   </div>
 
                   {/* Quantity Counter */}
-                  <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-0.5 shrink-0">
+                  <div className="flex items-center gap-0.5 sm:gap-1 bg-white border border-gray-200 rounded-lg p-0.5 shrink-0">
                     <button
                       type="button"
                       onClick={() => onUpdateQuantity(item.material.id, item.orderType, -1)}
-                      className="w-6 h-6 rounded flex items-center justify-center text-gray-600 hover:bg-gray-100 font-bold"
+                      className="w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center text-gray-600 hover:bg-gray-100 font-bold text-xs"
                     >
                       -
                     </button>
-                    <span className="w-5 text-center font-bold text-gray-900 text-xs">{item.quantity}</span>
+                    <span className="w-4 sm:w-5 text-center font-bold text-gray-900 text-xs">{item.quantity}</span>
                     <button
                       type="button"
                       disabled={item.quantity >= item.material.physicallyAvailable}
                       onClick={() => onUpdateQuantity(item.material.id, item.orderType, 1)}
-                      className="w-6 h-6 rounded flex items-center justify-center text-gray-600 hover:bg-gray-100 font-bold disabled:opacity-30"
+                      className="w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center text-gray-600 hover:bg-gray-100 font-bold text-xs disabled:opacity-30"
                     >
                       +
                     </button>
@@ -286,7 +286,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   <button
                     type="button"
                     onClick={() => onRemoveItem(item.material.id, item.orderType)}
-                    className="p-1.5 text-gray-400 hover:text-rose-600 rounded-lg transition-colors"
+                    className="p-1 sm:p-1.5 text-gray-400 hover:text-rose-600 rounded-lg transition-colors shrink-0"
                   >
                     <Icon name="close" size={14} />
                   </button>
@@ -312,7 +312,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="text-[11px] font-semibold text-gray-700 block mb-1">Contact Phone</label>
                     <input
@@ -378,7 +378,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
         {/* Footer Pricing Summary & Actions */}
         {items.length > 0 && (
-          <div className="p-6 border-t border-gray-200 bg-gray-50/80 space-y-3">
+          <div className="p-4 sm:p-6 border-t border-gray-200 bg-gray-50/80 space-y-3">
             <div className="space-y-1.5 text-xs">
               <div className="flex justify-between text-gray-600">
                 <span>Subtotal</span>
@@ -403,7 +403,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             </div>
 
             {checkoutStep === "cart" ? (
-              <div className="grid grid-cols-2 gap-2 pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                 <button
                   type="button"
                   onClick={onClearCart}
@@ -421,7 +421,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-2 pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                 <button
                   type="button"
                   onClick={() => setCheckoutStep("cart")}

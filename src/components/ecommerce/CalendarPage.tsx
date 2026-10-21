@@ -24,9 +24,9 @@ export const CalendarPage: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Hero Showcase Banner */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#123d32] via-[#1a4a3e] to-[#0d2a23] text-white p-8 md:p-12 shadow-xl border border-emerald-800/40">
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#123d32] via-[#1a4a3e] to-[#0d2a23] text-white p-5 sm:p-8 md:p-12 shadow-xl border border-emerald-800/40">
         <div className="relative z-10 max-w-3xl space-y-3">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="text-[10px] font-bold tracking-widest text-amber-400 uppercase bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full">
               LIVE EVENT FLEET SCHEDULE
             </span>
@@ -35,7 +35,7 @@ export const CalendarPage: React.FC = () => {
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight font-display text-white">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight font-display text-white">
             Equipment Availability & Booking Calendar
           </h1>
 
